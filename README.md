@@ -1,5 +1,3 @@
-build-ci-scripts
-===============
 # iMessage.scpt
 
 Using PostBuildScript (https://wiki.jenkins-ci.org/display/JENKINS/PostBuildScript+Plugin) notify on failure only
