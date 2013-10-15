@@ -1,17 +1,16 @@
 #!/bin/bash
 
-SERVICE_ID=clarkda@me.com
-RECIPIENT_LIST=
-MESSAGE=
-
 usage() 
 { 
-	echo "Usage: $0 [-r <recipient1,recipient2,..>] [-m <message>]" 1>&2; 
+	echo "Usage: $0 [-s <service id>] ]-r <recipient1,recipient2,..>] [-m <message>]" 1>&2; 
 	exit 1; 
 }
 
-while getopts ":r:m:" o; do
+while getopts ":r:m:s:" o; do
 	case "${o}" in
+	s)
+		SERVICE_ID=${OPTARG}
+		;;
 	r)
 		 RECIPIENT_LIST=${OPTARG}
 		;;
@@ -26,17 +25,13 @@ done
 
 shift $((OPTIND-1))
 
-if [ -z "${RECIPIENT_LIST}" ] || [ -z "${MESSAGE}" ]; then
+if [ -z "${SERVICE_ID}" ] || [ -z "${RECIPIENT_LIST}" ] || [ -z "${MESSAGE}" ]; then
 	usage
 fi
 
 /usr/bin/osascript <<-EOF
 
 on run argv
-	if application "Messages" is not running then
-        	tell application "Messages" to activate 
-	end if
-
 	set RecipientList to {"$RECIPIENT_LIST"}
     	set ServiceID to "e:$SERVICE_ID"
 	set Message to "$MESSAGE"
