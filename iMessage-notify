@@ -32,11 +32,19 @@ fi
 /usr/bin/osascript <<-EOF
 
 on run argv
+	if application "Messages" is not running then
+		tell application "Messages" 
+			activate
+			delay 30
+		end tell 
+	end if
+
 	set RecipientList to {"$RECIPIENT_LIST"}
     	set ServiceID to "e:$SERVICE_ID"
 	set Message to "$MESSAGE"
-    	repeat with Recipient in RecipientList
-		tell application "Messages"
+    	
+	repeat with Recipient in RecipientList
+		tell application "Messages" 
 			send Message to buddy Recipient of service ServiceID
 		end tell
 	end repeat
