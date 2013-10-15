@@ -6,6 +6,9 @@ iMessage-notify
 
     $ ./iMessage-notify
     Usage: ./iMessage-notify [-s <service id>] ]-r <recipient1,recipient2,..>] [-m <message>]
+    
+I use this little guy with PostBuildScript (https://wiki.jenkins-ci.org/display/JENKINS/PostBuildScript+Plugin) to send out additional build failure notifications over iMessage
+    
 .. code-block:: bash
 
     $ ./iMessage-notify                                 \
