@@ -4,6 +4,10 @@ iMessage-notify
 
 .. code-block:: bash
 
+    $ ./iMessage-notify
+    Usage: ./iMessage-notify [-s <service id>] ]-r <recipient1,recipient2,..>] [-m <message>]
+.. code-block:: bash
+
     $ ./iMessage-notify                                 \
         -s build-bot@email.com                          \
         -r super@team.com,cool@team.com,member@team.com \
