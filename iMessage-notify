@@ -1,0 +1,50 @@
+#!/bin/bash
+
+SERVICE_ID=clarkda@me.com
+RECIPIENT_LIST=
+MESSAGE=
+
+usage() 
+{ 
+	echo "Usage: $0 [-r <recipient1,recipient2,..>] [-m <message>]" 1>&2; 
+	exit 1; 
+}
+
+while getopts ":r:m:" o; do
+	case "${o}" in
+	r)
+		 RECIPIENT_LIST=${OPTARG}
+		;;
+        m)
+		MESSAGE=${OPTARG}
+		;;
+	*)
+		usage
+		;;
+	esac
+done
+
+shift $((OPTIND-1))
+
+if [ -z "${RECIPIENT_LIST}" ] || [ -z "${MESSAGE}" ]; then
+	usage
+fi
+
+/usr/bin/osascript <<-EOF
+
+on run argv
+	if application "Messages" is not running then
+        	tell application "Messages" to activate 
+	end if
+
+	set RecipientList to {"$RECIPIENT_LIST"}
+    	set ServiceID to "e:$SERVICE_ID"
+	set Message to "$MESSAGE"
+    	repeat with Recipient in RecipientList
+		tell application "Messages"
+			send Message to buddy Recipient of service ServiceID
+		end tell
+	end repeat
+end run
+
+EOF
