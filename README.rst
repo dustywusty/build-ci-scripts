@@ -1,17 +1,17 @@
 ===== 
-iMessage-notify
+iMessage
 ===== 
 
 .. code-block:: bash
 
-    $ ./iMessage-notify
-    Usage: ./iMessage-notify [-s <service id>] ]-r <recipient1,recipient2,..>] [-m <message>]
+    $ ./iMessage
+    Usage: ./iMessage [-s <service id>] ]-r <recipient1,recipient2,..>] [-m <message>]
     
 I use this little guy with PostBuildScript (https://wiki.jenkins-ci.org/display/JENKINS/PostBuildScript+Plugin) to send out additional build failure notifications over iMessage
     
 .. code-block:: bash
 
-    $ ./iMessage-notify                                 \
+    $ ./iMessage                                        \
         -s build-bot@email.com                          \
         -r super@team.com,cool@team.com,member@team.com \
         -m "[Build, FAILED] $JOB_NAME - $BUILD_URL"
