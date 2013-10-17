@@ -1,0 +1,2 @@
+LAST_REV=`expr $(curl $JOB_URL/lastSuccessfulBuild/api/xml?xpath=/freeStyleBuild/changeSet/revision/revision | sed 's|.*<revision>\(.*\)</revision>|\1|') + 1`
+SVN_CHANGELOG=$(svn -r $LAST_REV:HEAD log ./SuperCoolApp/)
