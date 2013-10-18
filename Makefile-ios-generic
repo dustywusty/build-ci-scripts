@@ -1,23 +1,27 @@
 #
 # Makefile to build and deploy SuperCoolApp
+#
 
+BUILD_TOOL=xctool # xcodebuild
+DEVICE_ARCH=armv7
+DEVICE_SDK=iphone7.0
 
-BUILD_TOOL=xcodebuild
-# BUILD_TOOL=xctool
-PROVISIONING_PROFILE=000000-000000-000000-000000.mobileprovision
+DEPLOYED_NAME=Super
 SCHEME=SuperCoolApp
 WORKSPACE=SuperCoolApp.xcworkspace
 
+PROVISIONING_PROFILE=
+
+DEPLOYABLES_DIR=$(CURDIR)/deployables
 DERIVED_DATA_DIR=`xcodebuild -workspace $(WORKSPACE) -scheme $(SCHEME) -showBuildSettings | grep -m 1 SYMROOT | grep -oEi "\/.*"`
-DEPLOYABLES_DIR=$(CURDIR)
 
 # ...
 
 BUILD_ARGS=-workspace $(WORKSPACE) \
 		-scheme $(SCHEME) \
                 -configuration Release \
-                -sdk iphoneos7.0 \
-                -arch armv7 \
+                -sdk $(DEVICE_SDK) \
+                -arch $(DEVICE_ARCH)
 
 DEBUG_ARGS=-workspace $(WORKSPACE) \
 		-scheme $(SCHEME) \
@@ -27,9 +31,9 @@ DEBUG_ARGS=-workspace $(WORKSPACE) \
 
 ARCHIVE_ARGS=-sdk iphoneos \
 		PackageApplication \
-		-o "$(DEPLOYABLES_DIR)/Super.ipa" \
+		-o "$(DEPLOYABLES_DIR)/$(DEPLOYED_NAME).ipa" \
 		-verbose \
-		"$(DERIVED_DATA_DIR)/Release-iphoneos/Super.app"
+		"$(DERIVED_DATA_DIR)/Release-iphoneos/$(DEPLOYED_NAME).app"
 # ...
 
 default: clean build
